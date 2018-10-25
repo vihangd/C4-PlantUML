@@ -1,15 +1,51 @@
 ' Colors
 ' ##################################
 
-!define PERSON_BG_COLOR #08427B
-!define CONTAINER_BG_COLOR #438DD5
+'!define PERSON_BG_COLOR #08427B
+'!define CONTAINER_BG_COLOR #438DD5
+'!define SYSTEM_BG_COLOR #999999
+'!define ELEMENT_FONT_COLOR #FFFFFF
+
+
+'Blue 
+'!define PERSON_BG_COLOR #030F19
+!define PERSON_BG_COLOR #012039
+''!define COMPONENT_BG_COLOR #08427A
+!define COMPONENT_BG_COLOR #086FBE
+!define CONTAINER_BG_COLOR #86BAEF
 !define SYSTEM_BG_COLOR #999999
 !define ELEMENT_FONT_COLOR #FFFFFF
+
+
+'Maroon
+/'
+!define PERSON_BG_COLOR #500
+!define COMPONENT_BG_COLOR #801515
+!define CONTAINER_BG_COLOR #D39292
+!define NODE_BG_COLOR #D9B9B9
+!define SYSTEM_BG_COLOR #8C796D
+'/
 
 ' Styling
 ' ##################################
 
 !define TECHN_FONT_SIZE 12
+skinparam sequence {
+ArrowColor #666
+ActorBorderColor GREY
+LifeLineBorderColor GREY
+LifeLineBackgroundColor CONTAINER_BG_COLOR
+ParticipantBorderColor GREY
+ParticipantBackgroundColor PERSON_BG_COLOR
+ParticipantFontName Impact
+ParticipantFontSize 17
+ParticipantFontColor ELEMENT_FONT_COLOR
+
+ActorBackgroundColor COMPONENT_BG_COLOR
+ActorFontColor ELEMENT_FONT_COLOR
+ActorFontSize 17
+ActorFontName Aapex
+}
 
 skinparam defaultTextAlignment center
 
@@ -18,6 +54,8 @@ skinparam maxMessageSize 150
 
 skinparam rectangle {
     StereotypeFontSize 12
+'    BackgroundColor #D6E2F0
+BackgroundColor #FBF9FA
 }
 
 skinparam Arrow {
@@ -30,16 +68,39 @@ skinparam rectangle<<person>> {
     StereotypeFontColor ELEMENT_FONT_COLOR
     FontColor ELEMENT_FONT_COLOR
     BackgroundColor PERSON_BG_COLOR
-    BorderColor #073B6F
+''    BorderColor #073B6F
+BorderColor GREY
 }
 
-skinparam rectangle<<container>> {
+skinparam node<<container>> {
     StereotypeFontColor ELEMENT_FONT_COLOR
-    FontColor ELEMENT_FONT_COLOR
-    BackgroundColor CONTAINER_BG_COLOR
+    FontColor NAVY
+    BackgroundColor #86BAEF
     BorderColor #3C7FC0
 }
 
+skinparam rectangle<<component>> {
+    StereotypeFontColor ELEMENT_FONT_COLOR
+    FontColor ELEMENT_FONT_COLOR
+    BackgroundColor COMPONENT_BG_COLOR
+    BorderColor GREY
+    roundCorner 20
+}
+
+skinparam database<<database>> {
+StereotypeFontColor ELEMENT_FONT_COLOR
+FontColor ELEMENT_FONT_COLOR
+BackgroundColor COMPONENT_BG_COLOR
+BorderColor #3C7FC0
+}
+
+skinparam queue<<queue>> {
+StereotypeFontColor ELEMENT_FONT_COLOR
+FontColor ELEMENT_FONT_COLOR
+BackgroundColor COMPONENT_BG_COLOR
+''BorderColor #3C7FC0
+BorderColor GREY
+}
 skinparam rectangle<<system>> {
     StereotypeFontColor ELEMENT_FONT_COLOR
     FontColor ELEMENT_FONT_COLOR
@@ -49,8 +110,9 @@ skinparam rectangle<<system>> {
 
 skinparam package<<boundary>> {
     StereotypeFontSize 0
-    FontColor #999999
-    BorderColor #cccccc
+    FontColor #555555
+    BorderColor GREY
+BackgroundColor #ACC6E0 
 }
 
 ' Layout
@@ -82,8 +144,14 @@ endlegend
 !define Person(e_alias, e_label) rectangle "==e_label" <<person>> as e_alias
 !define Person(e_alias, e_label, e_descr) rectangle "==e_label\n\n e_descr" <<person>> as e_alias
 
-!define Container(e_alias, e_label, e_techn) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<container>> as e_alias
-!define Container(e_alias, e_label, e_techn, e_descr) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_descr" <<container>> as e_alias
+!define Container(e_alias, e_label, e_techn) node "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<container>> as e_alias
+!define Container(e_alias, e_label, e_techn, e_descr) node "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_descr" <<container>> as e_alias
+
+!define Component(e_alias, e_label, e_techn) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<component>> as e_alias
+!define Component(e_alias, e_label, e_techn, e_descr) rectangle "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//\n\n e_descr" <<component>> as e_alias
+
+!define Database(e_alias, e_label, e_techn) database "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<database>> as e_alias
+!define Queue(e_alias, e_label, e_techn) queue "==e_label\n//<size:TECHN_FONT_SIZE>[e_techn]</size>//" <<queue>> as e_alias
 
 !define System(e_alias, e_label) rectangle "==e_label" <<system>> as e_alias
 !define System(e_alias, e_label, e_descr) rectangle "==e_label\n\n e_descr" <<system>> as e_alias
